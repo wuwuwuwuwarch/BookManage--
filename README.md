@@ -128,7 +128,7 @@ src/main/webapp/
 1. **克隆项目**
 
 ```bash
-git clone git@github.com:wuwuwuwuwarch/图书管理系统.git
+git clone git@github.com:wuwuwuwuwarch/BookManage--.git
 ```
 
 2. **创建数据库**
