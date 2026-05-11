@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hstc.springbootbookmanage9135.dao.BookMapper">
+    <select id="selectBookList" resultType="com.hstc.springbootbookmanage9135.entity.Book">
+        SELECT * FROM book;
+    </select>
+
+    <insert id="insertBook" parameterType="Book">
+        insert into book(isbn,title,type_id,author,introduction,price,publisher,photo,publishcationDate)
+        values(#{isbn},#{title},#{type_id},#{author},#{introduction},#{price},#{publisher},#{photo},#{publishcationDate})
+    </insert>
+
+    <delete id="deleteBookByIsbn">
+        delete from book where isbn = #{isbn}
+    </delete>
+
+    <select id="selectBookByIsbn" resultType="com.hstc.springbootbookmanage9135.entity.Book">
+        SELECT * FROM book WHERE isbn = #{isbn}
+    </select>
+
+    <update id="updateBook">
+        UPDATE book
+        SET title = #{title}, author = #{author}, type_id = #{type_id}, price = #{price},
+            publisher = #{publisher}, introduction = #{introduction}, publishcationDate = #{publishcationDate}, photo = #{photo}
+        WHERE isbn = #{isbn}
+    </update>
+
+    <!-- 新增的搜索方法 -->
+    <select id="searchBooks" resultType="com.hstc.springbootbookmanage9135.entity.Book">
+        SELECT * FROM book
+        WHERE title LIKE CONCAT('%', #{title}, '%')
+          AND type_id = #{typeId}
+    </select>
+
+    <select id="selectBookListByTitleOrType_id" resultType="Book">
+            select * from book
+            <where>
+                    <if test="title!= null and title!= ''">
+                    and title like concat('%', #{title}, '%')
+                </if>
+                <if test="type_id!= null and type_id != ''">
+                    and type_id = #{type_id}
+                </if>
+            </where>
+    </select>
+</mapper>
